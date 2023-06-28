@@ -3780,7 +3780,7 @@ showhelp(void)
 	"  -e, --fill-value <value>          Fill unallocated blocks with value.\n"
 	"  -z, --allow-holes                 Allow files with holes.\n"
 	"  -f, --faketime                    Set filesystem timestamps to 0 (for testing).\n"
-	"  -q, --squash                      Same as \"-U -P\".\n"
+	"  -q, --squash <uid>                Same as \"-U -P\".\n"
 	"  -U, --squash-uids <uid>           Squash owners making all files be owned by <id>:<id>.\n"
 	"  -P, --squash-perms                Squash permissions on all files.\n"
 	"  -h, --help\n"
