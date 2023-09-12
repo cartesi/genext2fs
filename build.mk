@@ -1,5 +1,5 @@
 IMG ?= cartesi/genext2fs:main
-CP_FROM ?= genext2fs.deb
+CP_FROM ?= xgenext2fs.deb
 CP_TO   ?= .
 
 ifneq ($(BUILD_PLATFORM),)

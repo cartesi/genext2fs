@@ -1,10 +1,11 @@
 /* vi: set sw=8 ts=8: */
-// genext2fs.c
+// xgenext2fs.c
 //
 // ext2 filesystem generator for embedded systems
 // Copyright (C) 2000 Xavier Bestel <xav@bes.tel>
+// Copyright (C) 2023 Marcelo Politzer <https://discord.com/channels/600597137524391947/1107945240360394853>
 //
-// Please direct support requests to https://github.com/bestouff/genext2fs/issues
+// Please direct support requests to https://github.com/cartesi/genext2fs/issues
 //
 // 'du' portions taken from coreutils/du.c in busybox:
 //	Copyright (C) 1999,2000 by Lineo, inc. and John Beppu
@@ -3756,7 +3757,7 @@ populate_fs(filesystem *fs, struct fslayer *fslayers, int nlayers, int squash_ui
 static void
 showversion(void)
 {
-	printf("genext2fs " VERSION "\n");
+	printf("xgenext2fs " VERSION "\n");
 }
 
 static void
@@ -3786,7 +3787,7 @@ showhelp(void)
 	"  -h, --help\n"
 	"  -V, --version\n"
 	"  -v, --verbose\n\n"
-	"Report bugs to https://github.com/bestouff/genext2fs/issues\n", app_name);
+	"Report bugs to https://github.com/cartesi/genext2fs/issues\n", app_name);
 }
 
 #define MAX_DOPT 128
