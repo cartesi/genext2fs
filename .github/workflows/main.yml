@@ -34,7 +34,7 @@ jobs:
       - name: Extract artifacts from image
         run: |
           mkdir artifacts
-          make -f build.mk copy IMG=${{ github.repository_owner }}/genext2fs:${{ matrix.arch }} BUILD_PLATFORM=linux/${{ matrix.arch }} CP_FROM=genext2fs.deb CP_TO=artifacts/genext2fs_${{ matrix.arch }}.deb
+          make -f build.mk copy IMG=${{ github.repository_owner }}/genext2fs:${{ matrix.arch }} BUILD_PLATFORM=linux/${{ matrix.arch }} CP_FROM=xgenext2fs.deb CP_TO=artifacts/xgenext2fs_${{ matrix.arch }}.deb
 
       - name: Upload artifacts
         uses: actions/upload-artifact@v3

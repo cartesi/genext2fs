@@ -1,4 +1,4 @@
-FROM debian:bookworm-20230725 as genext2fs-builder
+FROM debian:bookworm-20230725 as xgenext2fs-builder
 ARG GENEXT2FS_VERSION=1.5.2
 ARG TARGETARCH
 ARG DESTDIR=release
@@ -17,4 +17,4 @@ RUN ./autogen.sh \
 &&  make install DESTDIR=${DESTDIR} \
 &&  mkdir -p ${DESTDIR}/DEBIAN \
 &&  cat tools/templates/control.template | sed "s|ARG_VERSION|${GENEXT2FS_VERSION}|g;s|ARG_ARCH|${TARGETARCH}|g" > ${DESTDIR}/DEBIAN/control \
-&& dpkg-deb -Zxz --root-owner-group --build ${DESTDIR} genext2fs.deb
+&& dpkg-deb -Zxz --root-owner-group --build ${DESTDIR} xgenext2fs.deb

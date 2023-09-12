@@ -1,5 +1,5 @@
 /* vi: set sw=8 ts=8: */
-// genext2fs.c
+// xgenext2fs.c
 //
 // ext2 filesystem generator for embedded systems
 // Copyright (C) 2000 Xavier Bestel <xav@bes.tel>
@@ -3756,7 +3756,7 @@ populate_fs(filesystem *fs, struct fslayer *fslayers, int nlayers, int squash_ui
 static void
 showversion(void)
 {
-	printf("genext2fs " VERSION "\n");
+	printf("xgenext2fs " VERSION "\n");
 }
 
 static void
@@ -3786,7 +3786,7 @@ showhelp(void)
 	"  -h, --help\n"
 	"  -V, --version\n"
 	"  -v, --verbose\n\n"
-	"Report bugs to https://github.com/bestouff/genext2fs/issues\n", app_name);
+	"Report bugs to https://github.com/cartesi/genext2fs/issues\n", app_name);
 }
 
 #define MAX_DOPT 128
