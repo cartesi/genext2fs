@@ -3995,10 +3995,6 @@ main(int argc, char **argv)
 	else
 	{
 		int groups;
-		if(reserved_frac == -1)
-			nbresrvd = nbblocks * RESERVED_BLOCKS;
-		else 
-			nbresrvd = nbblocks * reserved_frac;
 
 		stats.ninodes = EXT2_FIRST_INO - 1 + (nbresrvd ? 1 : 0);
 		stats.nblocks = 0;
@@ -4018,6 +4014,13 @@ main(int argc, char **argv)
 		+ gdsz // descriptor table
 		+ itsz // inodes per group
 		) * groups;
+
+		// reserved blocks
+		if(reserved_frac == -1)
+			nbresrvd = stats.nblocks * RESERVED_BLOCKS;
+		else
+			nbresrvd = stats.nblocks * reserved_frac;
+		stats.nblocks += nbresrvd;
 
 		if(nbinodes == -1)
 			nbinodes = adjust(stats.ninodes, adjust_string);
