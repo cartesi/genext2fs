@@ -2617,7 +2617,7 @@ add2fs_from_tarball(filesystem *fs, uint32 this_nod, FILE * fh, int squash_uids,
 						error_msg("invalid filename %s\n", filepath);
 						continue;
 					}
-					curdirbytes = align(strlen(filepath), 4);
+					curdirbytes = align(sizeof(directory) + strlen(filepath), 4);
 					if (dirbytes + curdirbytes > BLOCKSIZE) {
 						dirbytes = curdirbytes;
 						stats->nblocks++;
@@ -2919,7 +2919,7 @@ add2fs_from_dir(filesystem *fs, uint32 this_nod, int squash_uids, int squash_per
 					stats->ninodes++;
 					break;
 				case S_IFDIR:
-					curdirbytes = align(dent->d_reclen, 4);
+					curdirbytes = align(sizeof(directory) + strlen(dent->d_name), 4);
 					if (dirbytes + curdirbytes > BLOCKSIZE) {
 						dirbytes = curdirbytes;
 						stats->nblocks++;
