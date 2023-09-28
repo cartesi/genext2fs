@@ -2375,6 +2375,18 @@ add2fs_from_tarball(filesystem *fs, uint32 this_nod, FILE * fh, int squash_uids,
 		mode = archive_entry_mode(entry);
 		if (stats)
 		{
+			filepath = archive_entry_pathname(entry);
+			if (filepath == NULL) {
+				error_msg("invalid filename %s\n", filepath);
+				continue;
+			}
+			curdirbytes = align(sizeof(directory) + strlen(filepath), 4);
+			if (dirbytes + curdirbytes > BLOCKSIZE) {
+				dirbytes = curdirbytes;
+				stats->nblocks++;
+			} else {
+				dirbytes += curdirbytes;
+			}
 			// depending on the archive, the entry size might not
 			// be set in the first place in which case the
 			// estimate might be totally off
@@ -2398,18 +2410,6 @@ add2fs_from_tarball(filesystem *fs, uint32 this_nod, FILE * fh, int squash_uids,
 					stats->ninodes++;
 					break;
 				case S_IFDIR:
-					filepath = archive_entry_pathname(entry);
-					if (filepath == NULL) {
-						error_msg("invalid filename %s\n", filepath);
-						continue;
-					}
-					curdirbytes = align(sizeof(directory) + strlen(filepath), 4);
-					if (dirbytes + curdirbytes > BLOCKSIZE) {
-						dirbytes = curdirbytes;
-						stats->nblocks++;
-					} else {
-						dirbytes += curdirbytes;
-					}
 					stats->nblocks++;
 					stats->ninodes++;
 					break;
@@ -2687,7 +2687,14 @@ add2fs_from_dir(filesystem *fs, uint32 this_nod, int squash_uids, int squash_per
 			uid = gid = squash_uids;
 		if(squash_perms)
 			mode &= ~(FM_IRWXG | FM_IRWXO);
-		if(stats)
+		if(stats) {
+			curdirbytes = align(sizeof(directory) + strlen(dent->d_name), 4);
+			if (dirbytes + curdirbytes > BLOCKSIZE) {
+				dirbytes = curdirbytes;
+				stats->nblocks++;
+			} else {
+				dirbytes += curdirbytes;
+			}
 			switch(st.st_mode & S_IFMT)
 			{
 				case S_IFLNK:
@@ -2704,13 +2711,6 @@ add2fs_from_dir(filesystem *fs, uint32 this_nod, int squash_uids, int squash_per
 					stats->ninodes++;
 					break;
 				case S_IFDIR:
-					curdirbytes = align(sizeof(directory) + strlen(dent->d_name), 4);
-					if (dirbytes + curdirbytes > BLOCKSIZE) {
-						dirbytes = curdirbytes;
-						stats->nblocks++;
-					} else {
-						dirbytes += curdirbytes;
-					}
 					stats->nblocks++;
 					stats->ninodes++;
 					if(chdir(dent->d_name) < 0)
@@ -2723,6 +2723,7 @@ add2fs_from_dir(filesystem *fs, uint32 this_nod, int squash_uids, int squash_per
 				default:
 					break;
 			}
+		}
 		else
 		{
 			if((nod = find_dir(fs, this_nod, name)))
