@@ -55,7 +55,7 @@ jobs:
         with:
           prerelease: true
           files: |
-            artifacts/genext2fs_amd64.deb
-            artifacts/genext2fs_arm64.deb
+            artifacts/xgenext2fs_amd64.deb
+            artifacts/xgenext2fs_arm64.deb
         env:
           GITHUB_TOKEN: ${{ secrets.CI_TOKEN }}
