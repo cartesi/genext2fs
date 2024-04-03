@@ -2438,8 +2438,9 @@ add2fs_from_tarball(filesystem *fs, uint32 this_nod, FILE * fh, int squash_uids,
 			// FIXME: if the entry is a regular file, update
 			// content
 		else {
-			ctime = archive_entry_ctime(entry);
-			mtime = archive_entry_mtime(entry);
+			ctime = fs_timestamp? archive_entry_ctime(entry) : 0;
+			mtime = fs_timestamp? archive_entry_mtime(entry) : 0;
+
 			switch(mode & S_IFMT)
 			{
 #if HAVE_STRUCT_STAT_ST_RDEV
