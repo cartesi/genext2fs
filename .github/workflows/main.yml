@@ -39,7 +39,8 @@ jobs:
       - name: Upload artifacts
         uses: actions/upload-artifact@v4
         with:
-          name: xgenext2fs_${{ matrix.arch }}.deb
+          if-no-files-found: error
+          name: artifacts_${{ matrix.arch }}
           path: artifacts/xgenext2fs_${{ matrix.arch }}.deb
 
   release:
@@ -55,7 +56,7 @@ jobs:
         with:
           prerelease: true
           files: |
-            artifacts/xgenext2fs_amd64.deb
-            artifacts/xgenext2fs_arm64.deb
+            artifacts_amd64/xgenext2fs_amd64.deb
+            artifacts_arm64/xgenext2fs_arm64.deb
         env:
           GITHUB_TOKEN: ${{ secrets.CI_TOKEN }}
