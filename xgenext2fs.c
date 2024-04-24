@@ -133,6 +133,7 @@
 # include <libgen.h>
 #endif
 
+#include <locale.h>
 #include <stdarg.h>
 #include <assert.h>
 #include <time.h>
@@ -3659,7 +3660,10 @@ main(int argc, char **argv)
 	  { "verbose",		no_argument,		NULL, 'v' },
 	  { 0, 0, 0, 0}
 	} ;
-
+	const char locale_to_use[] = "C.UTF-8";
+	if (setlocale(LC_ALL, locale_to_use) == NULL) {
+		fprintf(stderr, "failed to set locale to %s, results may not be reproducible.\n", locale_to_use);
+	}
 	app_name = argv[0];
 
 	while((c = getopt_long(argc, argv, "x:d:D:a:B:b:i:N:r:L:m:o:g:e:zfqU:PhVv", longopts, NULL)) != EOF) {
