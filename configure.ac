@@ -2,7 +2,7 @@
 # Process this file with autoconf to produce a configure script.
 
 AC_PREREQ(2.59)
-AC_INIT([xgenext2fs], [1.5.5])
+AC_INIT([xgenext2fs], [1.5.6])
 AC_CONFIG_SRCDIR([xgenext2fs.c])
 
 builtin(include, [m4/ac_func_snprintf.m4])dnl
